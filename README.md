@@ -12,26 +12,23 @@
    <!-- Description below -->
         In this project/tutorial, we are going to return to the code created in our C# class
 		and finish creating the dating site we started! 
-		<br>
-		
-		
+			
 		Project Name: Blind Dating
 				
 		Project Description: This web app will allow a user to post a dating profile online.
 					
-				Tech Stack: 
-		- C# <br>
-		- ASP.NET<br>
-		- Microsoft SQL Server <br>
+		Tech Stack: 
+		- C# 
+		- ASP.NET
+		- Microsoft SQL Server 
 		
-			
 		Features: 
-		- Users will be able to sign up for accounts <br>
-		- Users will be able to login in <br>
-		- Users will be able to create a dating profile<br>
-		- Users will be able to view their own profile and other profiles, but not delete or delete other user’s data <br>
-		- Admins will have total control over the site <br>
-		- Users and Dating Profiles will be saved to the database <br>
+		- Users will be able to sign up for accounts 
+		- Users will be able to login in 
+		- Users will be able to create a dating profile
+		- Users will be able to view their own profile and other profiles, but not delete or delete other user’s data
+		- Admins will have total control over the site 
+		- Users and Dating Profiles will be saved to the database 
 		
 	
 
