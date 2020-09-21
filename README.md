@@ -15,27 +15,21 @@
 		<br>
 		
 		
-		<dt>Project Name:</dt><dd> Blind Dating</dd>
+		Project Name: Blind Dating
 		<br>
 		<div>
-		<dt>Project Description:</dt>
-		<dd>This web app will allow a user to post a dating profile online.</dd>
+		Project Description: This web app will allow a user to post a dating profile online.
 		<br>
-		</div>
-		
-			
+					
 		<div>
-		<dt>Tech Stack: </dt>
-		<dd>
+		Tech Stack: <br>
 		- C# <br>
 		- ASP.NET<br>
 		- Microsoft SQL Server <br>
-		</ul></dd><br>
 		</div>
 		
-	<div>
-		<dt>Features: </dt>
-		<dd>
+			<div>
+		Features: <br>
 		- Users will be able to sign up for accounts <br>
 		- Users will be able to login in <br>
 		- Users will be able to create a dating profile<br>
@@ -43,7 +37,7 @@
 delete other user’s data <br>
 		- Admins will have total control over the site <br>
 		- Users and Dating Profiles will be saved to the database <br>
-		</dd><br>
+		<br>
 	</div>
 
     </p>
