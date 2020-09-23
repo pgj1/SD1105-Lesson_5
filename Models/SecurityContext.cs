@@ -10,13 +10,10 @@ namespace BlindDating.Models
 {
     public class SecurityContext : IdentityDbContext
     {
-        public SecurityContext()
-        {
-        }
         public SecurityContext(DbContextOptions<SecurityContext> options) : base(options)
         {
         }
-
+		
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

@@ -17,7 +17,7 @@ namespace BlindDating
 			if (admin == null)
 			{
 				IdentityUser sysadmin = new IdentityUser();
-				sysadmin.Email = "admin@blinddating.com";
+				sysadmin.Email = "admin@blinddating.com"; 
 				sysadmin.UserName = "admin@blinddating.com";
 
 				IdentityResult result = userManager.CreateAsync(sysadmin, "@Admin1").Result;
@@ -28,7 +28,7 @@ namespace BlindDating
 				}
 			}
 		}
-
+ 
 
 		public static void SeedRoles(RoleManager<IdentityRole> roleManager)
 		{

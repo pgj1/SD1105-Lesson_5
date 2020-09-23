@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using BlindDating.Models;
 
 namespace BlindDating.Controllers
@@ -13,20 +14,23 @@ namespace BlindDating.Controllers
     public class DatingProfilesController : Controller
     {
         private readonly BlindDatingContext _context;
-        private UserManager<IdentityUser> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public DatingProfilesController(BlindDatingContext context)
+        public DatingProfilesController(BlindDatingContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: DatingProfiles
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             return View(await _context.DatingProfile.ToListAsync());
         }
 
         // GET: DatingProfiles/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,6 +50,7 @@ namespace BlindDating.Controllers
 
 
         // GET: DatingProfiles/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -53,6 +58,7 @@ namespace BlindDating.Controllers
 
 
         // Get user account id from database when user creates profile
+        [Authorize]
         public IActionResult ProfileInfo()
         {
             string userId = _userManager.GetUserId(User);
@@ -74,6 +80,7 @@ namespace BlindDating.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Age,Gender,Bio,UserAccountId")] DatingProfile datingProfile)
         {
@@ -87,6 +94,8 @@ namespace BlindDating.Controllers
         }
 
         // GET: DatingProfiles/Edit/5
+
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -139,6 +148,7 @@ namespace BlindDating.Controllers
         }
 
         // GET: DatingProfiles/Delete/5
+        
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -157,6 +167,7 @@ namespace BlindDating.Controllers
         }
 
         // POST: DatingProfiles/Delete/5
+        [Authorize (Roles="Administrator")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
