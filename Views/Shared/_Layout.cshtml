@@ -26,13 +26,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">BlindDating</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Blind Dating</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    @* <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li> *@
                     <li><a asp-area="" asp-controller="DatingProfiles" asp-action="ProfileInfo">My Profile</a></li>
-                    <li><a asp-area="" asp-controller="DatingProfiles" asp-action="Index">Profiles</a></li>
+                    <li><a asp-area="" asp-controller="DatingProfiles" asp-action="Browse"> Browse Profiles</a></li>
+                    <li><a asp-area="" asp-controller="DatingProfiles" asp-action="Index">Edit</a></li>
                 </ul>
                 <partial name="_LoginPartial" />
             </div>

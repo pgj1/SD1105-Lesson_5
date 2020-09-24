@@ -28,10 +28,40 @@ namespace BlindDating.Controllers
         { 
             return View(await _context.DatingProfile.ToListAsync());
         }
+		
+		
+		 // Browse: DatingProfiles
+        [Authorize]
+        public async Task<IActionResult> Browse()
+        { 
+            return View(await _context.DatingProfile.ToListAsync());
+        }
+		
 
         // GET: DatingProfiles/Details/5
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var datingProfile = await _context.DatingProfile
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (datingProfile == null)
+            {
+                return NotFound();
+            }
+
+            return View(datingProfile);
+        }
+		
+		
+		
+		 // SHOW: DatingProfiles/Details/5
+        [Authorize]
+        public async Task<IActionResult> Show(int? id)
         {
             if (id == null)
             {
@@ -88,7 +118,7 @@ namespace BlindDating.Controllers
             {
                 _context.Add(datingProfile);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ProfileInfo));
             }
             return View(datingProfile);
         }
