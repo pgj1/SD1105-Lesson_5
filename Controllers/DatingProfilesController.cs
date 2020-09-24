@@ -23,14 +23,14 @@ namespace BlindDating.Controllers
         }
 
         // GET: DatingProfiles
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Index()
-        {
+        { 
             return View(await _context.DatingProfile.ToListAsync());
         }
 
         // GET: DatingProfiles/Details/5
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -115,6 +115,7 @@ namespace BlindDating.Controllers
         // POST: DatingProfiles/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Age,Gender,Bio,UserAccountId")] DatingProfile datingProfile)
@@ -148,7 +149,8 @@ namespace BlindDating.Controllers
         }
 
         // GET: DatingProfiles/Delete/5
-        
+
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
