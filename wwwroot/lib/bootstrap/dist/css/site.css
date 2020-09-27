@@ -21,14 +21,13 @@ a {
 	background-color: transparent;
 }
 */
-
 thead{
 	color: #da2020;
 }
 
 hr {
     background-color: red;
-	border-top: 0px solid Red;
+	border-top: 0px solid red;
 	height: 2px;
 }
 
@@ -45,7 +44,6 @@ hr {
 
 .navbar-inverse .navbar-brand {
     color: snow;
-	
 }
 
 .navbar-inverse .navbar-nav > li > a {
@@ -55,7 +53,6 @@ hr {
 .footer {
 	font-size: small;
 	font-style: italic;
-	
 }
 
 .HomeText{
@@ -69,6 +66,7 @@ hr {
 	background-color: transparent;
 }
 
+
 .BannerLink {
     color: white;
     text-decoration-color: white;
@@ -81,8 +79,6 @@ a.navbar-brand:hover {
   text-decoration: underline;
   background-color: pink;
 }
-
-
 
 
 
