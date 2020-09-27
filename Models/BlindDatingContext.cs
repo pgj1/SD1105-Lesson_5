@@ -1,9 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.AspNetCore.Identity;
-using BlindDating.Models;
-
 
 namespace BlindDating.Models
 {
@@ -19,13 +16,14 @@ namespace BlindDating.Models
         }
 
         public virtual DbSet<DatingProfile> DatingProfile { get; set; }
+        public virtual DbSet<MailMessage> MailMessage { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-// #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=localhost\\sqlexpress;Database=BlindDating;Trusted_Connection=True");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=BlindDating;Trusted_Connection=True");
             }
         }
 
@@ -37,6 +35,10 @@ namespace BlindDating.Models
                     .IsRequired()
                     .HasColumnType("text")
                     .HasDefaultValueSql("('Bio Missing')");
+
+                entity.Property(e => e.DisplayName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.FirstName)
                     .IsRequired()
@@ -53,10 +55,35 @@ namespace BlindDating.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.PhotoPath)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.UserAccountId)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<MailMessage>(entity =>
+            {
+                entity.Property(e => e.MessageText)
+                    .IsRequired()
+                    .HasColumnType("text");
+
+                entity.Property(e => e.MessageTitle)
+                    .IsRequired()
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.FromProfile)
+                    .WithMany(p => p.MailMessageFromProfile)
+                    .HasForeignKey(d => d.FromProfileId)
+                    .HasConstraintName("FK__MailMessa__FromP__49C3F6B7");
+
+                entity.HasOne(d => d.ToProfile)
+                    .WithMany(p => p.MailMessageToProfile)
+                    .HasForeignKey(d => d.ToProfileId)
+                    .HasConstraintName("FK__MailMessa__ToPro__4AB81AF0");
             });
         }
     }

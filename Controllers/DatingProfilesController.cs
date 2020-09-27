@@ -8,18 +8,23 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using BlindDating.Models;
-
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+ 
 namespace BlindDating.Controllers
 {
     public class DatingProfilesController : Controller
     {
         private readonly BlindDatingContext _context;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IHostingEnvironment _webroot;
 
-        public DatingProfilesController(BlindDatingContext context, UserManager<IdentityUser> userManager)
+        public DatingProfilesController(BlindDatingContext context, UserManager<IdentityUser> userManager, IHostingEnvironment webroot)
         {
             _context = context;
             _userManager = userManager;
+			_webroot = webroot;
         }
 
         // GET: DatingProfiles
@@ -29,15 +34,13 @@ namespace BlindDating.Controllers
             return View(await _context.DatingProfile.ToListAsync());
         }
 		
-		
 		 // Browse: DatingProfiles
         [Authorize]
         public async Task<IActionResult> Browse()
         { 
             return View(await _context.DatingProfile.ToListAsync());
         }
-		
-
+	
         // GET: DatingProfiles/Details/5
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Details(int? id)
@@ -86,7 +89,6 @@ namespace BlindDating.Controllers
             return View();
         }
 
-
         // Get user account id from database when user creates profile
         [Authorize]
         public IActionResult ProfileInfo()
@@ -112,19 +114,35 @@ namespace BlindDating.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Age,Gender,Bio,UserAccountId")] DatingProfile datingProfile)
-        {
-            if (ModelState.IsValid)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,DisplayName,Age,Gender,Bio,UserAccountId")] DatingProfile datingProfile,
+    		IFormFile FilePhoto)
+        { 
+		
+			if (FilePhoto.Length >0)
+			{
+				
+				string photoPath = _webroot.WebRootPath + "\\userPhotos\\";
+				var fileName = Path.GetFileName(FilePhoto.FileName);
+		 
+			using (var stream = System.IO.File.Create(photoPath + fileName))
+			   {
+				await FilePhoto.CopyToAsync(stream);
+					datingProfile.PhotoPath = fileName;
+               }
+			}
+	 
+
+
+			if (ModelState.IsValid)
             {
                 _context.Add(datingProfile);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(ProfileInfo));
+                return RedirectToAction("ProfileInfo");
             }
             return View(datingProfile);
         }
 
         // GET: DatingProfiles/Edit/5
-
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -141,19 +159,33 @@ namespace BlindDating.Controllers
             return View(datingProfile);
         }
 
-
         // POST: DatingProfiles/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Age,Gender,Bio,UserAccountId")] DatingProfile datingProfile)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,DisplayName,Age,Gender,Bio,UserAccountId")] DatingProfile datingProfile,
+            IFormFile FilePhoto)
         {
             if (id != datingProfile.Id)
             {
                 return NotFound();
             }
+
+            if (FilePhoto.Length > 0)
+            {
+
+                string photoPath = _webroot.WebRootPath + "\\userPhotos\\";
+                var fileName = Path.GetFileName(FilePhoto.FileName);
+
+                using (var stream = System.IO.File.Create(photoPath + fileName))
+                {
+                    await FilePhoto.CopyToAsync(stream);
+                    datingProfile.PhotoPath = fileName;
+                }
+            }
+
 
             if (ModelState.IsValid)
             {
@@ -179,7 +211,6 @@ namespace BlindDating.Controllers
         }
 
         // GET: DatingProfiles/Delete/5
-
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -199,7 +230,7 @@ namespace BlindDating.Controllers
         }
 
         // POST: DatingProfiles/Delete/5
-        [Authorize (Roles="Administrator")]
+        [Authorize(Roles ="Administrator")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

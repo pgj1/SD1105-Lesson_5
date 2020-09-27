@@ -24,6 +24,12 @@
             @Html.DisplayFor(model => model.LastName)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.DisplayName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DisplayName)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.Age)
         </dt>
         <dd>
@@ -40,6 +46,9 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Bio)
+        </dd>
+        <dd>
+            <img src="\userPhotos\@Html.DisplayFor(model => model.PhotoPath)" width="200" height="200" />
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.UserAccountId)

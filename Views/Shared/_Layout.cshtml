@@ -26,14 +26,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Blind Dating</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Blind Dating.com<br />Blindly Follow Your Heart</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @* <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li> *@
-                    <li><a asp-area="" asp-controller="DatingProfiles" asp-action="ProfileInfo">My Profile</a></li>
-                    <li><a asp-area="" asp-controller="DatingProfiles" asp-action="Browse"> Browse Profiles</a></li>
-                    <li><a asp-area="" asp-controller="DatingProfiles" asp-action="Index">Edit</a></li>
+                    <li><p><a asp-area="" asp-controller="DatingProfiles" asp-action="ProfileInfo">My Profile</a></p>
+                    <p><a asp-area="" asp-controller="DatingProfiles" asp-action="Browse"> Browse Dating Profiles</a></p></li>
+                    <li> &nbsp;  &nbsp; &nbsp; </li>
+                    <li><p><a asp-area="" asp-controller="Messages" asp-action="Inbox"> My Inbox </a> </p>
+                    <p><a asp-area="" asp-controller="DatingProfiles" asp-action="Index">Edit</a></p></li>
+
                 </ul>
                 <partial name="_LoginPartial" />
             </div>
@@ -42,6 +45,7 @@
 
     <partial name="_CookieConsentPartial" />
 
+    <p></p><br /><p> </p>
     <div class="container body-content">
         @RenderBody()
         <hr />

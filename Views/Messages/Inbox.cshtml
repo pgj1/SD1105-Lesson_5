@@ -1,0 +1,57 @@
+﻿@model BlindDating.ViewModels.InboxViewModel
+
+@{
+    ViewData["Title"] = "Inbox";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Messages</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Subject
+            </th>
+            <th>
+                From
+            </th>
+            <th>
+                Photo
+            </th>
+            <th>
+                Action
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @Model.mailMessages)
+        {
+            <tr>
+                <td>
+                    @item.MessageTitle
+                </td>
+                <td>
+                    @Model.fromProfiles.FirstOrDefault(id => id.Id == item.FromProfileId).DisplayName
+                </td>
+                <td>
+                    <img src="~/userPhotos/@Model.fromProfiles.FirstOrDefault(id => id.Id == item.FromProfile.Id).PhotoPath" width="75" height="75" />
+                </td>
+                <td>
+                    <a asp-action="Read" asp-route-id="@item.Id">Read</a>
+                </td>
+                @* <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td> *@
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-controller="Home" asp-action="Index">Home</a>
+</div>

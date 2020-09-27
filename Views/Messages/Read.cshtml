@@ -1,0 +1,46 @@
+﻿@model BlindDating.Models.MailMessage
+
+@{
+    ViewData["Title"] = "Read Mail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Read message from other dater</h2>
+
+<div>
+    <h4>Mail Message</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MessageTitle)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MessageTitle)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MessageText)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MessageText)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsRead)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsRead)
+        </dd>
+
+       
+        @*  <dt>
+            @Html.DisplayNameFor(model => model.UserAccountId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserAccountId)
+        </dd> *@
+    </dl>
+</div>
+<div>
+    @*
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> | *@
+    <a asp-controller="Messages" asp-action="Inbox">Back to Inbox</a>
+</div>
