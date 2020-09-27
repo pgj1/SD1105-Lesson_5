@@ -5,7 +5,7 @@
    </head>
   <body style="font-family: arial;">
         <h1>
-         Lesson 4 Project: Blind Dating App
+         Project: Blind Dating App
         </h1>
    <p>
    <h4> Dating Site Project Requirements</h4>
